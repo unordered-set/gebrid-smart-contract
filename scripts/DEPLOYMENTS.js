@@ -1,12 +1,12 @@
 const DATA = {
     beacon: {
-        mumbai:  "0x75D7Ed36ca0BE8A77A9A7a781C4642aa1632adcc",
+        mumbai: "0x59a466e8b66362B328aa8af9a5C2E9f6B3ba297C",
     },
     collectionFactory: {
-        mumbai: "0xD98462A21F4334CbF794E221d9D82c061dBFEC1E",
+        mumbai: "0x0509F8377114e43673b1C3B7fa1BEE1ad0eBAEF0",
     },
     protoCollection: {
-        mumbai: "0x455FEf5297F796fFE1Fa6E431e8C7F70686F90ad",
+        mumbai: "0x2A0eA9e141F3E5e9C06A8fDD16874cC34c90714F",
     },
 };
   
