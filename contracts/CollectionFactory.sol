@@ -13,8 +13,12 @@ contract CollectionFactory {
         _beacon = beacon;
     }
 
-    function createNewCollection(string memory name_, string memory symbol_) public {
-        address newCollectionAddress = address(new BeaconProxy(_beacon, abi.encodeWithSignature("initialize(string,string)", name_, symbol_)));
+    function createNewCollection(string calldata name_, string calldata symbol_, address owner) public {
+        address newCollectionAddress = address(
+            new BeaconProxy(_beacon,
+                            abi.encodeWithSignature("initialize(string,string,address,address)",
+                                                    name_, symbol_, owner, msg.sender))
+        );
         emit CollectionCreated(newCollectionAddress);
     }
 }
