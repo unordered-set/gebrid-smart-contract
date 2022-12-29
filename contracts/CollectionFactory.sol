@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
 contract CollectionFactory {
     address _beacon;
 
-    event CollectionCreated(address indexed);
+    event CollectionCreated(address indexed, address indexed);
 
     constructor (address beacon) {
         _beacon = beacon;
@@ -19,6 +19,6 @@ contract CollectionFactory {
                             abi.encodeWithSignature("initialize(string,string,address,address)",
                                                     name_, symbol_, owner, msg.sender))
         );
-        emit CollectionCreated(newCollectionAddress);
+        emit CollectionCreated(newCollectionAddress, owner);
     }
 }

@@ -7,19 +7,23 @@ async function main() {
   const CollectionProtocontract = await ethers.getContractFactory("Collection");
   const Factory = await ethers.getContractFactory("CollectionFactory");
 
-  let beacon = getDeployment("beacon"),
+  let beaconAddress = getDeployment("beacon"),
       collectionprotocontract = getDeployment("protoCollection"),
       factory = getDeployment("collectionFactory");
+  let beacon;
 
   if (!collectionprotocontract) {
     collectionprotocontract = await CollectionProtocontract.deploy();
     await collectionprotocontract.deployed();
     console.log(`Deployed CollectionProtocontract to ${collectionprotocontract.address}`)
   }
-  if (!beacon) {
+  if (!beaconAddress) {
     beacon = await Beacon.deploy(collectionprotocontract.address)
     await beacon.deployed()
     console.log(`Deployed Beacon to ${beacon.address}`)
+  } else {
+    beacon = Beacon.attach(beaconAddress);
+    console.log(`Attached to Beacon @ ${beaconAddress}`)
   }
   if (!factory) {
     factory = await Factory.deploy(beacon.address);
