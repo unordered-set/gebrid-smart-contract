@@ -87,6 +87,7 @@ contract Collection is ERC721URIStorageUpgradeable, AccessControlUpgradeable {
                 ++i;
             }
         }
+        emit ItemListed(tokenId);
     }
 
     /* |token| is a ERC-20 address of token contract */
@@ -96,6 +97,18 @@ contract Collection is ERC721URIStorageUpgradeable, AccessControlUpgradeable {
         delete(_prices[tokenId]);
         _safeTransfer(address(this), msg.sender, tokenId, "");
         emit ItemDelisted(tokenId);
+    }
+
+    function getPrice(uint256 tokenId) external view returns (address[] memory tokens, uint256[] memory prices) {
+        uint256 pricesLen = _prices[tokenId].length();
+        tokens = new address[](pricesLen);
+        prices = new uint256[](pricesLen);
+        for (uint256 i = 0; i < pricesLen; ) {
+            (address cToken, uint256 cPrice) = _prices[tokenId].at(i);
+            tokens[i] = cToken;
+            prices[i] = cPrice;
+            unchecked { ++i; }
+        }
     }
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC721Upgradeable, AccessControlUpgradeable) returns (bool) {
